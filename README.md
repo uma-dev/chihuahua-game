@@ -3,17 +3,6 @@ Work in progress game for chihuahua dogs, it is made with OOP paradigm using [py
 This is a intermidiate look into 2D games and a easy **introduction to OOP programming** for those who like games. 
 Checkout my other example [car-game](https://github.com/uma-dev/car-game) with pygame and have fun. 
 
-## Develop your own levels 
-You can check the file "Classes of game.dia" to take a look on the _Class diagrams_ without looking at the source code. 
-If you dont have already Dia installed try:
-- 	``` sudo apt install dia ``` on Linux
-- visit [Dia website](http://dia-installer.de/) on Windows
-
-<p align="center">
-	<img alt="Class diagram" src="https://user-images.githubusercontent.com/22565959/215545446-4c557d95-b2c1-4878-96be-ac669e9e4e3f.png">
-</p>
-
-
 ## How to use it
 ### What you need
 This program only needs a computer with **python** and **pygame** installed, If you don't know how to do it, here are some examples that may help. 
@@ -41,6 +30,16 @@ This program only needs a computer with **python** and **pygame** installed, If 
   ```
 <p align="center"> 
 	<img alt="Game.py" src="https://user-images.githubusercontent.com/22565959/215546502-d1f4a86c-70ad-4ddd-95a5-32db8f98188f.png">
+</p>
+
+## Develop your own levels 
+You can check the file "Classes of game.dia" to take a look on the _Class diagrams_ without looking at the source code. 
+If you dont have already Dia installed try:
+- 	``` sudo apt install dia ``` on Linux
+- visit [Dia website](http://dia-installer.de/) on Windows
+
+<p align="center">
+	<img alt="Class diagram" src="https://user-images.githubusercontent.com/22565959/215545446-4c557d95-b2c1-4878-96be-ac669e9e4e3f.png">
 </p>
 
 ### Animation working principle
