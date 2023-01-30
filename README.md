@@ -10,15 +10,15 @@ If you dont have already Dia installed try:
 - visit [Dia website](http://dia-installer.de/) on Windows
 
 <p align="center">
-	<img alt="Class diagram" src="">
+	<img alt="Class diagram" src="https://user-images.githubusercontent.com/22565959/215545446-4c557d95-b2c1-4878-96be-ac669e9e4e3f.png">
 </p>
 
 
 ## How to use it
 ### What you need
-This program only needs a computer with **python** and **pygame** installed, If you don't know how to do it, here are some examples that can help. 
+This program only needs a computer with **python** and **pygame** installed, If you don't know how to do it, here are some examples that may help. 
 <p align="center">
-	<img alt="Game.py" src="">
+	<img alt="Game.py" src="https://user-images.githubusercontent.com/22565959/215545981-3a106e1a-6674-49c9-b493-a059da383bf4.png">
 </p>
 
 - Python 
@@ -40,7 +40,7 @@ This program only needs a computer with **python** and **pygame** installed, If 
   python3 Game.py 
   ```
 <p align="center"> 
-	<img alt="Game.py" src="">
+	<img alt="Game.py" src="https://user-images.githubusercontent.com/22565959/215546502-d1f4a86c-70ad-4ddd-95a5-32db8f98188f.png">
 </p>
 
 ### Animation working principle
