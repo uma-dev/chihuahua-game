@@ -1,16 +1,56 @@
 # Chihuahua Game
-Work in progress game for chihuahua dogs, it is made with OOP paradigm and its main porpuse is to serve as  an example for pygame capabilities. Checkout my other examples with pygame and have fun. 
+Work in progress game for chihuahua dogs, it is made with OOP paradigm using [pygame](https://www.pygame.org/news) modules on **Python**. 
+This is a intermidiate look into 2D games and a easy **introduction to OOP programming** for those who like games. 
+Checkout my other example [car-game](https://github.com/uma-dev/car-game) with pygame and have fun. 
+
+## Develop your own levels 
+You can check the file "Classes of game.dia" to take a look on the _Class diagrams_ without looking at the source code. 
+If you dont have already Dia installed try:
+- 	``` sudo apt install dia ``` on Linux
+- visit [Dia website](http://dia-installer.de/) on Windows
+
+<p align="center">
+	<img alt="Class diagram" src="">
+</p>
+
 
 ## How to use it
+### What you need
+This program only needs a computer with **python** and **pygame** installed, If you don't know how to do it, here are some examples that can help. 
+<p align="center">
+	<img alt="Game.py" src="">
+</p>
 
+- Python 
+  - [Installing Python on Windows](https://learn.microsoft.com/en-us/windows/python/beginners)
+  - [Installing Python on Linux](https://docs.python-guide.org/starting/install3/linux/)
+  
+- Pip 
+  - [Pip Installation](https://pip.pypa.io/en/stable/installation/)
+  
+- Pygame 
+  - [Getting started with Pygame](https://www.pygame.org/wiki/GettingStarted) 
 
-## Animation working principle
+### Executing
+  As easy as it is, if you have not executed any python script before, take a look to the following tutorial:
+  - [Execute Python scripts](https://pythonbasics.org/execute-python-scripts/)
+  - After going to the `root` folder of the proyect type
+
+  ```
+  python3 Game.py 
+  ```
+<p align="center"> 
+	<img alt="Game.py" src="">
+</p>
+
+### Animation working principle
 The general idea is to make a frame with a cropped subimage of the general canvas ...
 
-## Adding a new character
+### Adding a new character
 As simple as making your own character canvas to generate the necesary frames with pygame. 
 
-## Making executable
+### Make it executable
 
 - Windows
 - Linux 
+
