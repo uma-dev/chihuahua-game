@@ -4,7 +4,7 @@ from Entities.Entities import Character
 
 size = SIZE
 screen = pygame.display.set_mode(size)
-pygame.display.set_caption("Dogs")
+pygame.display.set_caption("Chihuahua game")
 
 class Game(object):
 	def __init__(self):
