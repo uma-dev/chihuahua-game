@@ -45,11 +45,11 @@ If you dont have already Dia installed try:
 ### Animation working principle
 The general idea is to make a frame with a cropped subimage of the general canvas, the subimage that is going to be shown on the screen depends on the command catched from the keyboard.
 <p align="center">
-	<img alt="Canvas" src=" ">
+	<img alt="Canvas" src="">
 </p>
 
 ### Adding a new character
-As simple as making your own character canvas to generate the necesary frames with pygame. 
+As simple as making your own character canvas to generate the necesary frames with pygame, you can load a menu an select the character that you want.
 
 ### Make it executable
 
