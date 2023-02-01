@@ -45,7 +45,7 @@ If you dont have already Dia installed try:
 ### Animation working principle
 The general idea is to make a frame with a cropped subimage of the general canvas, the subimage that is going to be shown on the screen depends on the command catched from the keyboard.
 <p align="center">
-	<img alt="Canvas" src="">
+	<img alt="Canvas" src="https://user-images.githubusercontent.com/22565959/216153341-489e8766-e9f3-4882-bef6-65a41cce2931.png">
 </p>
 
 ### Adding a new character
