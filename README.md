@@ -1,6 +1,6 @@
 # Chihuahua Game (Work in progress)
 
-Game about my chihuahua dogs, it is made with OOP paradigm using [pygame](https://www.pygame.org/news) modules on **Python**.
+Chihuahua dogs game made with OOP paradigm using [pygame](https://www.pygame.org/news) modules on **Python**.
 This is a intermediate look into 2D games and a easy **introduction to OOP programming** for those who like games.
 Checkout my other example [car-game](https://github.com/uma-dev/car-game) with pygame and have fun.
 
