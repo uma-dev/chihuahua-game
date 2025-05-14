@@ -4,7 +4,7 @@ Chihuahua dogs game using [pygame](https://www.pygame.org/news) modules on **Pyt
 This is a intermediate look into 2D games and a easy **introduction to OOP programming** for those who like games.
 Checkout my other example [car-game](https://github.com/uma-dev/car-game) with pygame and have fun.
 
-## How to use it
+## How to use
 
 ### What you need
 
