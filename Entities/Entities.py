@@ -1,5 +1,5 @@
 import pygame
-from Utils.States import AnimatedState, StaticState
+from utils.States import AnimatedState, StaticState
 
 
 class GameEntity(pygame.sprite.Sprite):

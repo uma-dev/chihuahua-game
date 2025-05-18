@@ -1,5 +1,6 @@
 import pygame
 
+
 class EntityState(object):
     def __init__(self):
         self.current_sprite = None
@@ -20,6 +21,7 @@ class EntityState(object):
     def update(self, dt):
         pass
 
+
 class AnimatedState(EntityState):
     def __init__(self, images, number_of_sprites, speed, name):
         super(AnimatedState, self).__init__()
@@ -27,12 +29,17 @@ class AnimatedState(EntityState):
         self.images = images
         self.number_of_sprites = number_of_sprites
         self.name = name
-        self.current_sprite = self.images.subsurface(0,0,self.images.get_width()/self.number_of_sprites, self.images.get_height())
+        self.current_sprite = self.images.subsurface(
+            0,
+            0,
+            self.images.get_width() / self.number_of_sprites,
+            self.images.get_height(),
+        )
         self.speed = speed
-        self.width = self.images.get_width()/self.number_of_sprites
+        self.width = self.images.get_width() / self.number_of_sprites
         self.height = self.images.get_height()
         self.is_loop = False
-        self.current_delta =  0
+        self.current_delta = 0
 
     def update(self, dt):
         self.current_delta = self.current_delta + dt
@@ -40,19 +47,18 @@ class AnimatedState(EntityState):
         if self.current_delta > self.speed:
             self.current_delta = 0
 
-        sprite_index =  int((self.current_delta*self.number_of_sprites/self.speed))
+        sprite_index = int((self.current_delta * self.number_of_sprites / self.speed))
 
-        if sprite_index > self.number_of_sprites-1:
-            sprite_index = self.number_of_sprites-1
+        if sprite_index > self.number_of_sprites - 1:
+            sprite_index = self.number_of_sprites - 1
 
         self.current_sprite = self.images.subsurface(
-                              sprite_index*self.width,
-                              0, self.width, self.height)
+            sprite_index * self.width, 0, self.width, self.height
+        )
+
 
 class StaticState(EntityState):
     def __init__(self, image, name):
         super(StaticState, self).__init__()
-
         self.current_sprite = image
         self.name = name
-

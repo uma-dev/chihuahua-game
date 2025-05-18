@@ -1,6 +1,6 @@
 import pygame
 from GeneralInformation import SKY_BLUE, SIZE
-from Entities.Entities import Character
+from entities.Entities import Character
 
 size = SIZE
 screen = pygame.display.set_mode(size)
