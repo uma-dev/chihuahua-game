@@ -33,7 +33,7 @@ class Game(object):
                     self.keydown(event.key)
                 if event.type == pygame.KEYUP:
                     self.keyup(event.key)
-            dt = self.clock.tick(50)
+            dt = self.clock.tick(60)
             self.character.update(dt)
 
             for sprite in self.drawable_sprites.sprites():
