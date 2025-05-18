@@ -1,6 +1,6 @@
 import pygame
-from GeneralInformation import SKY_BLUE, SIZE
-from entities.Entities import Character
+from utils.constants import SKY_BLUE, SIZE
+from entities.character import Character
 
 size = SIZE
 screen = pygame.display.set_mode(size)
@@ -9,9 +9,9 @@ pygame.display.set_caption("Chihuahua game")
 
 class Game(object):
     def __init__(self):
-        self.running = True  # logic
-        self.clock = pygame.time.Clock()  # clock
-        self.drawable_sprites = pygame.sprite.Group()  # initial position
+        self.running = True
+        self.clock = pygame.time.Clock()
+        self.drawable_sprites = pygame.sprite.Group()
         self.character = Character(screen, (size[0] / 2), -100)  #
         self.drawable_sprites.add(self.character)
 

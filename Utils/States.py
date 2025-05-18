@@ -1,6 +1,3 @@
-import pygame
-
-
 class EntityState(object):
     def __init__(self):
         self.current_sprite = None
