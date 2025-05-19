@@ -1,12 +1,13 @@
 import pygame
 from .gameentity import GameEntity
 from utils.States import AnimatedState, StaticState
+from utils.constants import CHARACTER_SPEED
 
 
 class Character(GameEntity):
     def __init__(self, display, px, py):
         super(Character, self).__init__(display)  # new window
-        self.speed = 2.5
+        self.speed = CHARACTER_SPEED
         self.walking_images = pygame.image.load("assets/images/almendra.png")
         self.number_of_sprites = 4
         self.walking_right_state = AnimatedState(
@@ -85,7 +86,7 @@ class Character(GameEntity):
             self.set_current_state("walking_right")
             self.dx = self.speed
         if key == pygame.K_LSHIFT:
-            self.speed = self.speed * 5
+            self.speed = self.speed * 2
 
     def key_up(self, key):
         if key == pygame.K_UP:
@@ -101,7 +102,7 @@ class Character(GameEntity):
                 self.set_current_state("resting_right")
                 self.dx = 0
         if key == pygame.K_LSHIFT:
-            self.speed = 2.5  # restore initial value
+            self.speed = CHARACTER_SPEED  # restore initial value
 
     def update(self, dt):
         self.calculate_gravity()
@@ -131,5 +132,23 @@ class Character(GameEntity):
         if self.current_state is None:
             raise RuntimeError("current_state must be set before update()")
 
-        self.current_state.update(dt)
+        self.current_state.update(dt * 1000)
         self.image = self.current_state.get_sprite()
+
+    def hit_ball(self, ball):
+        direction = pygame.math.Vector2(ball.rect.center) - pygame.math.Vector2(
+            self.rect.center
+        )
+        if direction.length() > 0:
+            direction = direction.normalize()
+        ball.apply_force(direction * 12 + pygame.math.Vector2(0, -10))
+
+    def can_hit_ball(self, ball):
+        return (
+            self.rect.top - ball.rect.bottom < 50
+            and abs(self.rect.centerx - ball.rect.centerx) < 100
+        )
+
+    def draw(self, surface):
+        """Draw character to specified surface"""
+        surface.blit(self.image, self.rect)

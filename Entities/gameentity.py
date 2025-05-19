@@ -29,5 +29,5 @@ class GameEntity(sprite.Sprite):
     def update(self, dt):
         raise NotImplementedError("The update method must be called in any child class")
 
-    def draw(self):
+    def draw(self, surface):
         self.display.blit(self.image, self.rect)
