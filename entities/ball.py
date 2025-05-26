@@ -24,7 +24,7 @@ class Ball(pygame.sprite.Sprite):
             (BALL_SIZE // 2, BALL_SIZE // 2),
             BALL_SIZE // 2,
         )
-        pygame.draw.circle(self.image, COLORS["violet_light"], (20, 20), 8)
+        pygame.draw.circle(self.image, COLORS["violet_light"], (12, 12), 6)
 
     def update(self, dt):
         """Update ball physics and position"""

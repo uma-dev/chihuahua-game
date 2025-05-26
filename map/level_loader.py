@@ -41,6 +41,10 @@ class Level:
             self.grass_with_wall_tile, (TILE_SIZE, TILE_SIZE)
         )
 
+        path_ring = os.path.join("assets", "images", "tiles", "ring.png")
+        self.ring_tile = pygame.image.load(path_ring).convert_alpha()
+        self.ring_tile = pygame.transform.scale(self.ring_tile, (TILE_SIZE, TILE_SIZE))
+
     def draw(self, surface):
         for row_index, row in enumerate(self.tile_data):
             for col_index, tile in enumerate(row):
@@ -64,6 +68,10 @@ class Level:
                     x = col_index * TILE_SIZE
                     y = row_index * TILE_SIZE
                     surface.blit(self.grass_with_wall_tile, (x, y))
+                elif tile == 6:
+                    x = col_index * TILE_SIZE
+                    y = row_index * TILE_SIZE
+                    surface.blit(self.ring_tile, (x, y))
 
 
 class LevelLoader:
