@@ -26,6 +26,7 @@ class GameplayScreen(BaseScreen):
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE and self.character.can_hit_ball(self.ball):
                 self.character.hit_ball(self.ball)
+
             self.character.key_down(event.key)
 
         elif event.type == pygame.KEYUP:
