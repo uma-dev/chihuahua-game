@@ -19,9 +19,12 @@ class Ball(pygame.sprite.Sprite):
         """Create ball surface with optional trail effect"""
         self.image = pygame.Surface((BALL_SIZE, BALL_SIZE), pygame.SRCALPHA)
         pygame.draw.circle(
-            self.image, COLORS["ball"], (BALL_SIZE // 2, BALL_SIZE // 2), BALL_SIZE // 2
+            self.image,
+            COLORS["violet"],
+            (BALL_SIZE // 2, BALL_SIZE // 2),
+            BALL_SIZE // 2,
         )
-        pygame.draw.circle(self.image, COLORS["white"], (20, 20), 8)
+        pygame.draw.circle(self.image, COLORS["violet_light"], (20, 20), 8)
 
     def update(self, dt):
         """Update ball physics and position"""
