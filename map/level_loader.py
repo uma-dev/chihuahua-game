@@ -9,6 +9,7 @@ class Level:
     def __init__(self, data):
         self.tile_data = data["tiles"]
         self.start_pos = tuple(data["start"])
+        self.target = tuple(data["target"])
         self.ball_spawn = tuple(data["ball_spawn"])
 
         path_grass = os.path.join("assets", "images", "tiles", "grass.webp")
