@@ -16,7 +16,7 @@ class GameEngine:
         pygame.display.set_caption(CAPTION)
         self.clock = pygame.time.Clock()
         self.running = True
-        self.state_manager = StateManager(self.screen, initial_screen)
+        self.state_manager = StateManager(self.screen)
 
     def run(self):
         """
