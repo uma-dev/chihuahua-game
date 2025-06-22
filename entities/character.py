@@ -20,6 +20,8 @@ class Character(GameEntity):
         self._init_states()
 
         self.set_current_state("resting_left")
+        self.start_x = x
+        self.start_y = y
         self.rect = self.image.get_rect(topleft=(x, y))
 
         self.accelerating = False
@@ -144,3 +146,9 @@ class Character(GameEntity):
 
     def draw(self, surface):
         surface.blit(self.image, self.rect)
+
+    def reset(self):
+        self.rect.x = self.start_x
+        self.rect.y = self.start_y
+        self.dx = 0
+        self.dy = 0
