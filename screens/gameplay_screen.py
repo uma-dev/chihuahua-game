@@ -1,5 +1,6 @@
 import pygame
 from entities.target import Target
+from logic.collision_handler import ball_hits_target, character_hits_ball
 from map.level_loader import LevelLoader
 from screens.base_screen import BaseScreen
 from entities.character import Character
@@ -38,14 +39,11 @@ class GameplayScreen(BaseScreen):
         elif event.type == pygame.KEYUP:
             self.character.key_up(event.key)
 
-        elif event.type == pygame.K_r:
-            self.ball.reset()
-
     def update(self, dt):
         self.all_sprites.update(dt)
-        self.check_collisions()
+        character_hits_ball(self.character, self.ball)
 
-        if self.check_target_reached():
+        if ball_hits_target(self.ball, self.target):
             print("Win!")
             self.state_manager.change_state(GameState.WIN)
 
@@ -55,18 +53,3 @@ class GameplayScreen(BaseScreen):
         for sprite in self.drawable_sprites:
             sprite.draw(self.screen)
         pygame.display.flip()
-
-    def check_target_reached(self):
-        return pygame.sprite.collide_rect(self.ball, self.target)
-
-    def check_collisions(self):
-        if pygame.sprite.collide_mask(self.character, self.ball):
-            hit_direction = pygame.math.Vector2(
-                self.ball.rect.center
-            ) - pygame.math.Vector2(self.character.rect.center)
-            if hit_direction.length() > 0:
-                hit_direction = hit_direction.normalize()
-
-            force = hit_direction * 12 + pygame.math.Vector2(0, -10)
-            force += pygame.math.Vector2(self.character.dx * 0.5, 0)
-            self.ball.apply_force(force)
