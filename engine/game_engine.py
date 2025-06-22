@@ -1,18 +1,16 @@
 import pygame
 from engine.state_manager import StateManager
-from utils.constants import CAPTION, SIZE
+from utils.constants import CAPTION, SCREEN_SIZE
 
 
 class GameEngine:
-    def __init__(self, initial_screen=None):
+    def __init__(self):
         """
         Core game engine that runs the main loop and delegates
         events, updates, and rendering to the StateManager.
-
-        :param initial_screen: Optional Screen class to start with
         """
         pygame.init()
-        self.screen = pygame.display.set_mode(SIZE)
+        self.screen = pygame.display.set_mode(SCREEN_SIZE)
         pygame.display.set_caption(CAPTION)
         self.clock = pygame.time.Clock()
         self.running = True

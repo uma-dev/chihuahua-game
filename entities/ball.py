@@ -1,5 +1,13 @@
 import pygame
-from utils.constants import COLORS, GRAVITY, BOUNCE_DAMPING, SIZE, FRICTION, BALL_SIZE
+from utils.constants import (
+    COLORS,
+    GRAVITY,
+    BOUNCE_DAMPING,
+    FRICTION,
+    BALL_SIZE,
+    SCREEN_HEIGHT,
+    SCREEN_WIDTH,
+)
 
 
 class Ball(pygame.sprite.Sprite):
@@ -55,8 +63,8 @@ class Ball(pygame.sprite.Sprite):
         if self.rect.left < 0:
             self.rect.left = 0
             self.velocity.x *= -self.bounce_damping
-        elif self.rect.right > SIZE[0]:
-            self.rect.right = SIZE[0]
+        elif self.rect.right > SCREEN_WIDTH:
+            self.rect.right = SCREEN_WIDTH
             self.velocity.x *= -self.bounce_damping
 
         # Vertical boundaries
@@ -66,8 +74,8 @@ class Ball(pygame.sprite.Sprite):
 
         # Floor collision
         self.on_ground = False
-        if self.rect.bottom > SIZE[1]:
-            self.rect.bottom = SIZE[1]
+        if self.rect.bottom > SCREEN_HEIGHT:
+            self.rect.bottom = SCREEN_HEIGHT
             self.velocity.y *= -self.bounce_damping
             self.velocity.x *= 0.9  # Extra friction on ground hit
             self.on_ground = True
@@ -83,8 +91,8 @@ class Ball(pygame.sprite.Sprite):
 
     def reset(self, x=None, y=None):
         """Reset ball to specified position or center"""
-        x = x if x is not None else SIZE[0] // 2
-        y = y if y is not None else SIZE[1] // 2
+        x = SCREEN_WIDTH // 2
+        y = y if y is not None else SCREEN_HEIGHT // 2
         self.rect.center = (x, y)
         self.velocity = pygame.math.Vector2(0, 0)
         self.on_ground = False

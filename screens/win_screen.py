@@ -1,6 +1,6 @@
 import pygame
 from screens.base_screen import BaseScreen
-from utils.constants import COLORS, SIZE, WIN_FONT_SIZE
+from utils.constants import COLORS, SCREEN_HEIGHT, SCREEN_WIDTH, WIN_FONT_SIZE
 from utils.game_states import GameState
 
 
@@ -31,5 +31,7 @@ class WinScreen(BaseScreen):
         pygame.display.flip()
 
     def _blit_centered(self, surface, y_offset=0):
-        rect = surface.get_rect(center=(SIZE[0] // 2, SIZE[1] // 2 + y_offset))
+        rect = surface.get_rect(
+            center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + y_offset)
+        )
         self.screen.blit(surface, rect)
