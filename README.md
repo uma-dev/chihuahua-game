@@ -22,9 +22,10 @@ Check out my another work in progress project: [Car Game](https://github.com/uma
 2. [Prerequisites](#-prerequisites)
 3. [Installation](#installation)
 4. [Usage](#usage)
-5. [Environment](#-environment)
+5. [RL Setup](#-rl-setup)
 6. [Creating Custom Levels](#custom-levels)
 7. [Contributing](#-contributing)
+
 ---
 
 ## 🎮 Features
@@ -82,6 +83,7 @@ The project is organized into modular components, separating game logic, assets,
 ---
 
 <a name="installation"></a>
+
 ## ⚙️ Installation
 
 1. Clone the repo:
@@ -108,6 +110,7 @@ The project is organized into modular components, separating game logic, assets,
 ---
 
 <a name="usage"></a>
+
 ## ▶️ Usage
 
 Play the game with: (Use arrow keys (← ↑ → ↓) to move your chihuahua. Enjoy!)
@@ -128,7 +131,7 @@ Eval the policy with:
 python main.py eval
 ```
 
-Look at the learning curves with:
+Look training in real time with:
 
 ```bash
  tensorboard --logdir .\logs\ppo_tensorboard\
@@ -142,37 +145,53 @@ Look at the learning curves with:
 
 ---
 
-## 🧠 Environment
+## 🧠 RL Setup
 
-Discrete Observation Space: Position and velocity of ball and character
+### Description and goal
 
-Discrete Action Space: Move left / right / jump/ sprint / no action
+Chihuahua 2D videogame where the agent controls a chihuahua character that must hit and push a ball toward a target tile. The environment is built with Pygame and wrapped using Gymnasium API, so its compatible with RL algorithms.
 
-Rewards:
+The agent's objective is to learn how to move and act efficiently to guide the ball to the target, maximizing the reward and minimizing steps (penalty).
 
-+10 for hitting target blocks
+### Problem Formulation
 
--0.1 for every non successful step
+**State Space (Observation):**
+A vector of 8 values:
 
-Partial rewards based on distance to target tile:
-
-``` python
-dist < 5:
-  reward += 3
-elif dist < 10:
-  reward += 2
-elif dist < 100:
-  reward += 1
-
+```python
+[char_x, char_y, char_vx, char_vy, ball_x, ball_y, ball_vx, ball_vy]
 ```
 
-Done Condition: Level completion or failure
+**Action Space:**
+Discrete(5):
 
-Use env.render() to visualize the episode during training or testing.
+```python
+0 = No-op, 1 = Left, 2 = Right, 3 = Jump, 4 = Sprint
+```
+
+**Reward Function:**
+
+```python
+reward = -0.1  # penalty per step
+if dist < 100:
+    reward += 1
+if dist < 10:
+    reward += 2
+if dist < 5:
+    reward += 3
+if ball_hits_target:
+    reward += 10
+    done = True
+```
+
+**Learning Progress**
+
+Here is the total reward per episode over time:
 
 ---
 
 <a name="custom-levels"></a>
+
 ## 🛠️ Custom Levels
 
 Define JSON layout files in the levels/ folder
