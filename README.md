@@ -155,6 +155,11 @@ The agent's objective is to learn how to move and act efficiently to guide the b
 
 ### Problem Formulation
 
+* **Algorithm:** PPO (Proximal Policy Optimization)
+* **Policy:** MLP (Multilayer Perceptron)
+* **Library:** Stable-Baselines3
+* **Logging:** TensorBoard (`logs/ppo_tensorboard/`)
+
 **State Space (Observation):**
 A vector of 8 values:
 
