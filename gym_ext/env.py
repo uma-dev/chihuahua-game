@@ -28,8 +28,9 @@ class ChihuahuaEnv(gym.Env):
 
     metadata = {"render_modes": ["human"], "render_fps": 60}
 
-    def __init__(self, render_mode="human"):
+    def __init__(self, render_mode=None):
         super().__init__()
+        assert render_mode is None or render_mode in self.metadata["render_modes"]
         self.render_mode = render_mode
 
         # Action spaces
@@ -103,16 +104,16 @@ class ChihuahuaEnv(gym.Env):
         if ball_hits_target(self.ball, self.target):  # win condition
             reward += 10
             done = True
-        else:
-            ball_pos = np.array([self.ball.rect.x, self.ball.rect.y])
-            tgt_pos = np.array([self.target.rect.x, self.target.rect.y])
-            dist = np.linalg.norm(ball_pos - tgt_pos)
-            if dist < 5:
-                reward += 3
-            elif dist < 10:
-                reward += 2
-            elif dist < 100:
-                reward += 1
+        # else:
+        #     ball_pos = np.array([self.ball.rect.x, self.ball.rect.y])
+        #     tgt_pos = np.array([self.target.rect.x, self.target.rect.y])
+        #     dist = np.linalg.norm(ball_pos - tgt_pos)
+        #     if dist < 5:
+        #         reward += 3
+        #     elif dist < 10:
+        #         reward += 2
+        #     elif dist < 100:
+        #         reward += 1
 
         obs = self._get_observation()
         info = {}
