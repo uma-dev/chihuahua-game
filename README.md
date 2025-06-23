@@ -147,7 +147,6 @@ Chihuahua 2D videogame where the agent controls a chihuahua character that must 
 
 The agent's objective is to learn how to move and act efficiently to guide the ball to the target, maximizing the reward and minimizing steps (penalty).
 
-
 <p align="center">
   <img
     alt="Executing Game.py"
@@ -174,15 +173,12 @@ Discrete(5):
 
 ```python
 reward = -0.1  # penalty per step
-if dist < 100:
-    reward += 1
-if dist < 10:
-    reward += 2
-if dist < 5:
+if distance_to_target < 5:
     reward += 3
-if ball_hits_target:
-    reward += 10
-    done = True
+elif distance_to_target < 10:
+    reward += 2
+elif distance_to_target < 100:
+    reward += 1
 ```
 
 **Learning Progress**
