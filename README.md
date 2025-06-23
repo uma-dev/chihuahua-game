@@ -42,6 +42,37 @@ Check out my another work in progress project: [Car Game](https://github.com/uma
   <img alt="Prerequisites: Game.py setup" src="https://user-images.githubusercontent.com/22565959/215545981-3a106e1a-6674-49c9-b493-a059da383bf4.png">
 </p>
 
+### Project structure
+
+The project is organized into modular components, separating game logic, assets, environment definitions, and training scripts:
+
+``` bash
+├── assets/              # Game assets (sprites, tiles)
+│   └── images/          # Character and tile images
+│       └── tiles/       # Grass, wall, and ring textures
+
+├── engine/              # Core game engine and state manager
+│   └── game_engine.py   # Game loop and scene handling
+
+├── entities/            # Game entities like the character, ball, and target
+
+├── gym_ext/             # Gym-compatible environment and training script
+│   ├── env.py           # Gymnasium environment wrapper
+│   └── train.py         # PPO or other RL agent training logic
+
+├── logic/               # Game physics and collision handling
+
+├── logs/                # TensorBoard logs for training visualization
+
+├── map/                 # Level definitions (JSON) and level loader
+
+├── models/              # (Optional) Trained models can be saved here
+
+├── screens/             # UI screens (menu, gameplay, win state)
+
+└── utils/               # Constants, game states, shared helpers
+```
+
 ---
 
 ## 🔧 Prerequisites
@@ -79,28 +110,29 @@ Check out my another work in progress project: [Car Game](https://github.com/uma
 
 ## ▶️ Usage
 
-Play the game with:
+Play the game with: (Use arrow keys (← ↑ → ↓) to move your chihuahua. Enjoy!)
 
 ```bash
 python game.py
 ```
 
-Use arrow keys (← ↑ → ↓) to move your chihuahua. Enjoy!
+Train the model with:
+
+```bash
+python main.py train 
+```
+
+Eval the policy with:
+
+```bash
+python main.py eval
+```
 
 <p align="center">
   <img
     alt="Executing Game.py"
     src="https://user-images.githubusercontent.com/22565959/215546502-d1f4a86c-70ad-4ddd-95a5-32db8f98188f.png">
 </p>
-
----
-
-## 🧠 Environment
-
-* **`Game.py`**: Entry point, initializes Pygame and game loop
-* **`sprites/`**: Folder containing character and environment images
-* **`classes/`**: Python modules defining game entities and logic
-* **`levels/`**: JSON or text files defining custom level layouts
 
 ---
 
