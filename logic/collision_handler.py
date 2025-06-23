@@ -15,4 +15,10 @@ def character_hits_ball(character, ball):
 
 
 def ball_hits_target(ball, target):
-    return pygame.sprite.collide_rect(ball, target)
+    ball_center = pygame.math.Vector2(ball.rect.center)
+    target_center = pygame.math.Vector2(target.rect.center)
+    distance = ball_center.distance_to(target_center)
+
+    overlap = target.rect.width / 2
+
+    return distance <= overlap
