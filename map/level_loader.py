@@ -6,73 +6,41 @@ from utils.constants import TILE_SIZE
 
 
 class Level:
+    TILE_MAPPING = {
+        1: "grass.webp",
+        2: "wall.png",
+        3: "wall_top.png",
+        4: "wall_flat.png",
+        5: "grass_with_wall.webp",
+        6: "ring.png",
+    }
+
     def __init__(self, data):
         self.tile_data = data["tiles"]
         self.start_pos = tuple(data["start"])
         self.target = tuple(data["target"])
         self.ball_spawn = tuple(data["ball_spawn"])
+        self.tiles = self._load_tiles()
 
-        path_grass = os.path.join("assets", "images", "tiles", "grass.webp")
-        self.grass_tile = pygame.image.load(path_grass).convert_alpha()
-        self.grass_tile = pygame.transform.scale(
-            self.grass_tile, (TILE_SIZE, TILE_SIZE)
-        )
-
-        path_wall = os.path.join("assets", "images", "tiles", "wall.png")
-        self.wall_tile = pygame.image.load(path_wall).convert_alpha()
-        self.wall_tile = pygame.transform.scale(self.wall_tile, (TILE_SIZE, TILE_SIZE))
-
-        path_wall_top = os.path.join("assets", "images", "tiles", "wall_top.png")
-        self.wall_top_tile = pygame.image.load(path_wall_top).convert_alpha()
-        self.wall_top_tile = pygame.transform.scale(
-            self.wall_top_tile, (TILE_SIZE, TILE_SIZE)
-        )
-
-        path_wall_flat = os.path.join("assets", "images", "tiles", "wall_flat.png")
-        self.wall_flat_tile = pygame.image.load(path_wall_flat).convert_alpha()
-        self.wall_flat_tile = pygame.transform.scale(
-            self.wall_flat_tile, (TILE_SIZE, TILE_SIZE)
-        )
-
-        path_grass_wall = os.path.join(
-            "assets", "images", "tiles", "grass_with_wall.webp"
-        )
-        self.grass_with_wall_tile = pygame.image.load(path_grass_wall).convert_alpha()
-        self.grass_with_wall_tile = pygame.transform.scale(
-            self.grass_with_wall_tile, (TILE_SIZE, TILE_SIZE)
-        )
-
-        path_ring = os.path.join("assets", "images", "tiles", "ring.png")
-        self.ring_tile = pygame.image.load(path_ring).convert_alpha()
-        self.ring_tile = pygame.transform.scale(self.ring_tile, (TILE_SIZE, TILE_SIZE))
+    def _load_tiles(self):
+        tiles = {}
+        base_path = os.path.join("assets", "images", "tiles")
+        for tile_id, filename in self.TILE_MAPPING.items():
+            path = os.path.join(base_path, filename)
+            image = pygame.image.load(path)
+            if pygame.display.get_init():
+                image = image.convert_alpha()
+            image = pygame.transform.scale(image, (TILE_SIZE, TILE_SIZE))
+            tiles[tile_id] = image
+        return tiles
 
     def draw(self, surface):
         for row_index, row in enumerate(self.tile_data):
-            for col_index, tile in enumerate(row):
-                if tile == 1:
+            for col_index, tile_id in enumerate(row):
+                if tile_id in self.tiles:
                     x = col_index * TILE_SIZE
                     y = row_index * TILE_SIZE
-                    surface.blit(self.grass_tile, (x, y))
-                elif tile == 2:
-                    x = col_index * TILE_SIZE
-                    y = row_index * TILE_SIZE
-                    surface.blit(self.wall_tile, (x, y))
-                elif tile == 3:
-                    x = col_index * TILE_SIZE
-                    y = row_index * TILE_SIZE
-                    surface.blit(self.wall_top_tile, (x, y))
-                elif tile == 4:
-                    x = col_index * TILE_SIZE
-                    y = row_index * TILE_SIZE
-                    surface.blit(self.wall_flat_tile, (x, y))
-                elif tile == 5:
-                    x = col_index * TILE_SIZE
-                    y = row_index * TILE_SIZE
-                    surface.blit(self.grass_with_wall_tile, (x, y))
-                elif tile == 6:
-                    x = col_index * TILE_SIZE
-                    y = row_index * TILE_SIZE
-                    surface.blit(self.ring_tile, (x, y))
+                    surface.blit(self.tiles[tile_id], (x, y))
 
 
 class LevelLoader:
