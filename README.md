@@ -20,13 +20,11 @@ Check out my another work in progress project: [Car Game](https://github.com/uma
 
 1. [Features](#-features)
 2. [Prerequisites](#-prerequisites)
-3. [Installation](#-installation)
-4. [Usage](#-usage)
+3. [Installation](#installation)
+4. [Usage](#usage)
 5. [Environment](#-environment)
-6. [Creating Custom Levels](#-custom-levels)
+6. [Creating Custom Levels](#custom-levels)
 7. [Contributing](#-contributing)
-8. [License](#-license)
-
 ---
 
 ## 🎮 Features
@@ -83,6 +81,7 @@ The project is organized into modular components, separating game logic, assets,
 
 ---
 
+<a name="installation"></a>
 ## ⚙️ Installation
 
 1. Clone the repo:
@@ -108,6 +107,7 @@ The project is organized into modular components, separating game logic, assets,
 
 ---
 
+<a name="usage"></a>
 ## ▶️ Usage
 
 Play the game with: (Use arrow keys (← ↑ → ↓) to move your chihuahua. Enjoy!)
@@ -172,6 +172,7 @@ Use env.render() to visualize the episode during training or testing.
 
 ---
 
+<a name="custom-levels"></a>
 ## 🛠️ Custom Levels
 
 Define JSON layout files in the levels/ folder
