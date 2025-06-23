@@ -38,7 +38,7 @@ Check out my another work in progress project: [Car Game](https://github.com/uma
 * Playable characters with simple animations (render states)
 
 <p align="center">
-  <img alt="Prerequisites: Game.py setup" src="https://user-images.githubusercontent.com/22565959/215545981-3a106e1a-6674-49c9-b493-a059da383bf4.png">
+  <img alt="Digitalization" src="https://github.com/user-attachments/assets/4cbf36be-3d27-47a0-a164-aeee6a9abd8a">
 </p>
 
 ### Project structure
@@ -137,12 +137,6 @@ Look training in real time with:
  tensorboard --logdir .\logs\ppo_tensorboard\
 ```
 
-<p align="center">
-  <img
-    alt="Executing Game.py"
-    src="https://github.com/user-attachments/assets/c1a2b0e9-e0c5-4c65-a7fc-e1becbb1da64">
-</p>
-
 ---
 
 ## 🧠 RL Setup
@@ -152,6 +146,13 @@ Look training in real time with:
 Chihuahua 2D videogame where the agent controls a chihuahua character that must hit and push a ball toward a target tile. The environment is built with Pygame and wrapped using Gymnasium API, so its compatible with RL algorithms.
 
 The agent's objective is to learn how to move and act efficiently to guide the ball to the target, maximizing the reward and minimizing steps (penalty).
+
+
+<p align="center">
+  <img
+    alt="Executing Game.py"
+    src="https://github.com/user-attachments/assets/fad08b8e-f179-4974-bcd4-360608192ee5">
+</p>
 
 ### Problem Formulation
 
