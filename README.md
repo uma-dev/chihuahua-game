@@ -22,8 +22,8 @@ Check out my another work in progress project: [Car Game](https://github.com/uma
 2. [Prerequisites](#-prerequisites)
 3. [Installation](#-installation)
 4. [Usage](#-usage)
-5. [Environment](#-game-structure)
-6. [Creating Custom Levels](#-creating-custom-levels)
+5. [Environment](#-environment)
+6. [Creating Custom Levels](#-custom-levels)
 7. [Contributing](#-contributing)
 8. [License](#-license)
 
@@ -128,15 +128,21 @@ Eval the policy with:
 python main.py eval
 ```
 
+Look at the learning curves with:
+
+```bash
+ tensorboard --logdir .\logs\ppo_tensorboard\
+```
+
 <p align="center">
   <img
     alt="Executing Game.py"
-    src="https://user-images.githubusercontent.com/22565959/215546502-d1f4a86c-70ad-4ddd-95a5-32db8f98188f.png">
+    src="https://github.com/user-attachments/assets/c1a2b0e9-e0c5-4c65-a7fc-e1becbb1da64">
 </p>
 
 ---
 
-## 🧠 Environment Details
+## 🧠 Environment
 
 Discrete Observation Space: Position and velocity of ball and character
 
