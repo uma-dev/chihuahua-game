@@ -1,18 +1,18 @@
 # Chihuahua Game 🐕
 
-> A 2D Chihuahua-themed game built using OOP principles and Pygame in Python. A beginner-friendly introduction to object-oriented programming through game development.
+> A 2D Chihuahua-themed reinforcement learning environment built with Pygame and Gymnasium.
 
 ---
 
 ## 🚀 Overview
 
-This is a work-in-progress 2D game featuring chihuahua dogs. It demonstrates the use of:
+This is a 2D Pygame environment for training reinforcement learning agents. It includes:
 
+* A custom RL environment compatible with Gymnasium
+* Modular game structure using Pygame (clean architecture)
 * **Object-Oriented Programming (OOP)** for organizing game logic
-* **Pygame** for rendering graphics and handling input
-* **Python** as the development language
 
-Check out another example project: [Car Game](https://github.com/uma-dev/car-game).
+Check out my another work in progress project: [Car Game](https://github.com/uma-dev/car-game).
 
 ---
 
@@ -22,48 +22,39 @@ Check out another example project: [Car Game](https://github.com/uma-dev/car-gam
 2. [Prerequisites](#-prerequisites)
 3. [Installation](#-installation)
 4. [Usage](#-usage)
-5. [Game Structure](#-game-structure)
+5. [Environment](#-game-structure)
 6. [Creating Custom Levels](#-creating-custom-levels)
-7. [Adding New Characters](#-adding-new-characters)
-8. [Contributing](#-contributing)
-9. [License](#-license)
+7. [Contributing](#-contributing)
+8. [License](#-license)
 
 ---
 
 ## 🎮 Features
 
-* Playable chihuahua characters with simple animations
-* Keyboard controls for movement and actions
-* Easily extendable via classes for new levels and characters
-* Demonstrates sprite handling, collision detection, and game loops
-
----
-
-## 🔧 Prerequisites
-
-Ensure you have the following installed:
-
-* **Python 3.7+**
-* **Pygame** module
+* Discrete Reinforcement Learning environment
+* Collision-based rewards: hitting a target tile
+* Partial rewards: getting the ball near to the target tile
+* Frame-based animation, sprites, basic physics and level loading
+* Easy to integrate with Gym-based RL pipelines
+* Playable characters with simple animations (render states)
 
 <p align="center">
   <img alt="Prerequisites: Game.py setup" src="https://user-images.githubusercontent.com/22565959/215545981-3a106e1a-6674-49c9-b493-a059da383bf4.png">
 </p>
 
-### Helpful Links
+---
 
-* **Install Python**
+## 🔧 Prerequisites
 
-  * Windows: [https://learn.microsoft.com/en-us/windows/python/beginners](https://learn.microsoft.com/en-us/windows/python/beginners)
-  * Linux: [https://docs.python-guide.org/starting/install3/linux/](https://docs.python-guide.org/starting/install3/linux/)
-* **Install Pip**: [https://pip.pypa.io/en/stable/installation/](https://pip.pypa.io/en/stable/installation/)
-* **Pygame Guide**: [https://www.pygame.org/wiki/GettingStarted](https://www.pygame.org/wiki/GettingStarted)
+* **Python 3.7+**
+* uv (recommended)
+* modules: pygame, gymnasium, tensorboard (see requirements.txt)
 
 ---
 
 ## ⚙️ Installation
 
-1. Clone this repository:
+1. Clone the repo:
 
    ```bash
    git clone https://github.com/uma-dev/chihuahua-game.git
@@ -73,7 +64,7 @@ Ensure you have the following installed:
 2. (Optional) Create a virtual environment:
 
    ```bash
-   python -m venv .venv
+   uv venv 
    source .venv/bin/activate  # Linux/macOS
    .\.venv\Scripts\activate  # Windows
    ```
@@ -81,68 +72,73 @@ Ensure you have the following installed:
 3. Install dependencies:
 
    ```bash
-   pip install -r requirements.txt
+   uv pip install -r requirements.txt
    ```
 
 ---
 
 ## ▶️ Usage
 
-Run the game with:
+Play the game with:
 
 ```bash
-python Game.py
+python game.py
 ```
 
 Use arrow keys (← ↑ → ↓) to move your chihuahua. Enjoy!
 
 <p align="center">
-  <img alt="Executing Game.py" src="https://user-images.githubusercontent.com/22565959/215546502-d1f4a86c-70ad-4ddd-95a5-32db8f98188f.png">
+  <img
+    alt="Executing Game.py"
+    src="https://user-images.githubusercontent.com/22565959/215546502-d1f4a86c-70ad-4ddd-95a5-32db8f98188f.png">
 </p>
 
 ---
 
-## 🏗️ Game Structure
+## 🧠 Environment
 
 * **`Game.py`**: Entry point, initializes Pygame and game loop
 * **`sprites/`**: Folder containing character and environment images
 * **`classes/`**: Python modules defining game entities and logic
 * **`levels/`**: JSON or text files defining custom level layouts
 
-### Animation Principle
+---
 
-Each sprite sheet is divided into frames. The game crops the appropriate sub-image each tick based on player input to animate movement.
+## 🧠 Environment Details
 
-<p align="center">
-  <img alt="Canvas animation principle" src="https://user-images.githubusercontent.com/22565959/216153341-489e8766-e9f3-4882-bef6-65a41cce2931.png">
-</p>
+Discrete Observation Space: Position and velocity of ball and character
+
+Discrete Action Space: Move left / right / jump/ sprint / no action
+
+Rewards:
+
++10 for hitting target blocks
+
+-0.1 for every non successful step
+
+Partial rewards based on distance to target tile:
+
+``` python
+dist < 5:
+  reward += 3
+elif dist < 10:
+  reward += 2
+elif dist < 100:
+  reward += 1
+
+```
+
+Done Condition: Level completion or failure
+
+Use env.render() to visualize the episode during training or testing.
 
 ---
 
-## 📝 Class diagram
+## 🛠️ Custom Levels
 
-1. Open the class diagram (`Classes of game.dia`) for an overview of object relationships.
+Define JSON layout files in the levels/ folder
 
-<p align="center">
-  <img alt="Class diagram" src="https://user-images.githubusercontent.com/22565959/215545446-4c557d95-b2c1-4878-96be-ac669e9e4e3f.png">
-</p>
-
-2. Define a new level file in `levels/` following the existing format.
-3. Load your level in `Game.py` by specifying its path.
-
-> **Tip:** Install [Dia](http://dia-installer.de/) to view `.dia` files. On Linux:
-
- ```bash
- sudo apt install dia
- ```
-
----
-
-## 🎨 Adding New Characters
-
-1. Create a new sprite sheet in `assets/images/` with consistent frame sizes.
-2. Add a corresponding class in `classes/` inheriting from the base `Character` class.
-3. Update the character selection menu in `Game.py` to include your new sprite.
+Add custom tilemaps, special blocks, or enemies
 
 ---
 
