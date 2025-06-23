@@ -7,7 +7,13 @@ from map.level_loader import LevelLoader
 from entities.character import Character
 from entities.ball import Ball
 from entities.target import Target
-from utils.constants import COLORS, SCREEN_SIZE, SCREEN_WIDTH, SCREEN_HEIGHT
+from utils.constants import (
+    CHARACTER_SPRINT_SPEED,
+    COLORS,
+    SCREEN_SIZE,
+    SCREEN_WIDTH,
+    SCREEN_HEIGHT,
+)
 
 
 class ChihuahuaEnv(gym.Env):
@@ -18,33 +24,40 @@ class ChihuahuaEnv(gym.Env):
     Observation:
         [char_x, char_y, char_vx, char_vy,
          ball_x, ball_y, ball_vx, ball_vy,
-         target_x, target_y]
     """
 
     metadata = {"render_modes": ["human"], "render_fps": 60}
 
     def __init__(self, render_mode="human"):
         super().__init__()
-        # Load level
         self.render_mode = render_mode
 
-        # Define action and observation spaces
+        # Action spaces
         self.action_space = spaces.Discrete(5)
-        low = np.array([0, 0, -np.inf, -np.inf] * 2 + [0, 0], dtype=np.float32)
+
+        # Observation spaces
+        low = np.array(
+            [0, 0, -CHARACTER_SPRINT_SPEED, -CHARACTER_SPRINT_SPEED] * 2,
+            dtype=np.float32,
+        )
         high = np.array(
-            [SCREEN_WIDTH, SCREEN_HEIGHT, np.inf, np.inf] * 2
-            + [SCREEN_WIDTH, SCREEN_HEIGHT],
+            [
+                SCREEN_WIDTH,
+                SCREEN_HEIGHT,
+                CHARACTER_SPRINT_SPEED,
+                CHARACTER_SPRINT_SPEED,
+            ]
+            * 2,
             dtype=np.float32,
         )
         self.observation_space = spaces.Box(low, high, dtype=np.float32)
 
-        # Pygame init for rendering
-        pygame.init()
-        self.screen = (
-            pygame.display.set_mode(SCREEN_SIZE)
-            if render_mode == "human"
-            else pygame.Surface(SCREEN_SIZE)
-        )
+        if render_mode == "human":
+            pygame.init()
+            self.screen = pygame.display.set_mode(SCREEN_SIZE)
+        else:
+            self.screen = pygame.Surface(SCREEN_SIZE)
+
         self.level = LevelLoader.load("level_01.json")
         self.clock = pygame.time.Clock()
 
@@ -64,6 +77,9 @@ class ChihuahuaEnv(gym.Env):
         return obs, {}
 
     def step(self, action):
+        # if hasattr(self.character, "clear_inputs"):
+        #     self.character.clear_inputs()
+
         if action == 1:  # Left
             self.character.key_down(pygame.K_LEFT)
         elif action == 2:  # Right
@@ -74,30 +90,33 @@ class ChihuahuaEnv(gym.Env):
             self.character.key_down(pygame.K_LSHIFT)
         # 0: No-op
 
-        # Update game physics
+        # Game physics
         dt = self.clock.tick(self.metadata["render_fps"]) / 1000.0
         self.character.update(dt)
         self.ball.update(dt)
-
         character_hits_ball(self.character, self.ball)
 
         # Reward
-        ball_pos = np.array([self.ball.rect.x, self.ball.rect.y])
-        tgt_pos = np.array([self.target.rect.x, self.target.rect.y])
-        dist = np.linalg.norm(ball_pos - tgt_pos)
         reward = -0.1
         done = False
 
         if ball_hits_target(self.ball, self.target):  # win condition
             reward += 10
             done = True
-        elif dist < 100:
-            reward += 1
+        else:
+            ball_pos = np.array([self.ball.rect.x, self.ball.rect.y])
+            tgt_pos = np.array([self.target.rect.x, self.target.rect.y])
+            dist = np.linalg.norm(ball_pos - tgt_pos)
+            if dist < 5:
+                reward += 3
+            elif dist < 10:
+                reward += 2
+            elif dist < 100:
+                reward += 1
 
         obs = self._get_observation()
         info = {}
 
-        # Render if needed
         if self.render_mode == "human":
             self.render()
 
@@ -114,8 +133,6 @@ class ChihuahuaEnv(gym.Env):
                 self.ball.rect.y,
                 self.ball.velocity[0],
                 self.ball.velocity[1],
-                self.target.rect.x,
-                self.target.rect.y,
             ],
             dtype=np.float32,
         )

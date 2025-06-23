@@ -1,7 +1,7 @@
 import pygame
 from .gameentity import GameEntity
 from utils.States import AnimatedState, StaticState
-from utils.constants import CHARACTER_SPEED
+from utils.constants import CHARACTER_SPEED, CHARACTER_SPRINT_SPEED, SCREEN_WIDTH
 
 
 class Character(GameEntity):
@@ -20,7 +20,7 @@ class Character(GameEntity):
         self._init_states()
 
         self.set_current_state("resting_left")
-        self.start_x = x
+        self.start_x = SCREEN_WIDTH // 2
         self.start_y = y
         self.rect = self.image.get_rect(topleft=(x, y))
 
@@ -89,7 +89,7 @@ class Character(GameEntity):
             self.dx = self.speed
             self.set_current_state("walking_right")
         elif key == pygame.K_LSHIFT:
-            self.speed = CHARACTER_SPEED * 2
+            self.speed = CHARACTER_SPRINT_SPEED
 
     def key_up(self, key):
         if key in (pygame.K_LEFT, pygame.K_RIGHT):
