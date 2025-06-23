@@ -6,7 +6,7 @@
 
 ## 🚀 Overview
 
-This is a 2D Pygame environment for training reinforcement learning agents. It includes:
+2D Pygame game and environment for reinforcement learning. It includes:
 
 * A custom RL environment compatible with Gymnasium
 * Modular game structure using Pygame (clean architecture)
