@@ -6,8 +6,8 @@ MODEL_PATH = "models/ppo_chihuahua"
 LOGS_PATH = "logs/ppo_tensorboard/"
 
 
-def train():
-    env = ChihuahuaEnv()
+def train(render_mode=None):
+    env = ChihuahuaEnv(render_mode=render_mode)
 
     if os.path.exists(MODEL_PATH + ".zip"):
         print(f"Loading existing model from {MODEL_PATH}")
