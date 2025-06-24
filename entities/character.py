@@ -26,6 +26,7 @@ class Character(GameEntity):
 
         self.accelerating = False
         self.jumping = False
+        self.sprinting = False
 
     def _load_sprites(self):
         sheet = pygame.image.load(self.SPRITE_PATH)
@@ -83,13 +84,18 @@ class Character(GameEntity):
         if key == pygame.K_UP:
             self.jump()
         elif key == pygame.K_LEFT:
-            self.dx = -self.speed
+            self.dx = -CHARACTER_SPRINT_SPEED if self.sprinting else -CHARACTER_SPEED
             self.set_current_state("walking_left")
         elif key == pygame.K_RIGHT:
-            self.dx = self.speed
+            self.dx = CHARACTER_SPRINT_SPEED if self.sprinting else CHARACTER_SPEED
             self.set_current_state("walking_right")
         elif key == pygame.K_LSHIFT:
-            self.speed = CHARACTER_SPRINT_SPEED
+            self.sprinting = True
+            # Update dx if already moving
+            if self.dx > 0:
+                self.dx = CHARACTER_SPRINT_SPEED
+            elif self.dx < 0:
+                self.dx = -CHARACTER_SPRINT_SPEED
 
     def key_up(self, key):
         if key in (pygame.K_LEFT, pygame.K_RIGHT):
@@ -100,7 +106,12 @@ class Character(GameEntity):
                 self.set_current_state(f"resting_{side}")
                 self.dx = 0
         elif key == pygame.K_LSHIFT:
-            self.speed = CHARACTER_SPEED
+            self.sprinting = False
+            # Update dx if already moving
+            if self.dx > 0:
+                self.dx = CHARACTER_SPEED
+            elif self.dx < 0:
+                self.dx = -CHARACTER_SPEED
 
     def update(self, dt: float):
         self.calculate_gravity()
