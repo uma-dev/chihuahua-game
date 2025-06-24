@@ -119,10 +119,16 @@ Play the game with: (Use arrow keys (← ↑ → ↓) to move your chihuahua. En
 python game.py
 ```
 
-Train the model with:
+Train the model and observe the training process with:
 
 ```bash
-python main.py train 
+python main.py train_render 
+```
+
+Train the model without render:
+
+```bash
+python main.py train_no_render 
 ```
 
 Eval the policy with:
@@ -161,10 +167,10 @@ The agent's objective is to learn how to move and act efficiently to guide the b
 * **Logging:** TensorBoard (`logs/ppo_tensorboard/`)
 
 **State Space (Observation):**
-A vector of 8 values:
+A vector of 10 values:
 
 ```python
-[char_x, char_y, char_vx, char_vy, ball_x, ball_y, ball_vx, ball_vy]
+[char_x, char_y, char_vx, char_vy, ball_x, ball_y, ball_vx, ball_vy, char_jumping, char_sprinting]
 ```
 
 **Action Space:**
@@ -174,22 +180,70 @@ Discrete(5):
 0 = No-op, 1 = Left, 2 = Right, 3 = Jump, 4 = Sprint
 ```
 
-**Reward Function:**
+**Reward Function: (work in progress, as it directly changes the learning curve)** 
 
 ```python
-reward = -0.1  # penalty per step
-if distance_to_target < 5:
-    reward += 3
-elif distance_to_target < 10:
-    reward += 2
-elif distance_to_target < 100:
-    reward += 1
+if ball_hits_target(self.ball, self.target):  # win condition
+  reward += 10.0
+  # An episode only ends when the target is hitted
+  done = True
+else:
+  # penalty for each step
+  reward -= 0.01
 ```
 
-**Learning Progress**
+Training metrics are logged with **TensorBoard**, so you can monitor the agent's behavior over time:
 
-Here is the total reward per episode over time:
+```bash
+tensorboard --logdir logs/
+```
 
+---
+
+### Total Reward per Episode
+
+This shows the sum of all rewards per episode, as training progresses:
+
+<p align="center">
+  <img
+    alt="Reward"
+    src="https://github.com/user-attachments/assets/6d7a882b-f4e3-44ae-953a-305a826d806b">
+</p>
+
+- **Initial plateau**: The agent explores randomly without reward shaping.
+- **Reward drop**: Movement/jump penalties and progress bonus in the reward avoid this behaivor (?).
+- **Late improvement**: Reward increases as the agent learns to interact better.
+
+> ⚠️ Still in progress: refining the **state representation** (possibly using CNNs) and improving the **reward function**.
+
+---
+
+### Mean Episode Length
+
+This plot shows how long episodes last (in steps), averaged over evaluations:
+
+<p align="center">
+  <img
+    alt="Reward"
+    src="https://github.com/user-attachments/assets/b5aa4794-870e-495c-bab2-967a45245a5a">
+</p>
+
+- A strange behavior is observed at first, possibly due to the agent exploring or stalling.
+- Eventually, the episode length drops, which **aligns with increasing reward** — the agent finishes the task more efficiently.
+- The **minimum mean length** reached is **~1727 steps**.
+
+> ⚠️ When evaluating the policy, consider this number as a typical episode length.
+
+---
+
+### 🕒 Training stats
+
+- **Duration**: ~2.5 hours  
+- **Steps**: 500,000  
+- **Eval Interval**: Every 5,000 steps  
+  (Note: Since episodes last ~1.7k steps, more than one episode might occur per eval.)
+
+---
 ---
 
 <a name="custom-levels"></a>
