@@ -1,5 +1,6 @@
 import pygame
 from utils.constants import (
+    BALL_MAX_SPEED,
     COLORS,
     GRAVITY,
     BOUNCE_DAMPING,
@@ -21,7 +22,7 @@ class Ball(pygame.sprite.Sprite):
         self.friction = FRICTION
         self.on_ground = False
         self.air_resistance = 0.99
-        self.max_speed = 20
+        self.max_speed = BALL_MAX_SPEED
 
     def _create_visual(self):
         """Create ball surface with optional trail effect"""
@@ -91,9 +92,11 @@ class Ball(pygame.sprite.Sprite):
 
     def reset(self, x=None, y=None):
         """Reset ball to specified position or center"""
-        x = SCREEN_WIDTH // 2
-        y = y if y is not None else SCREEN_HEIGHT // 2
-        self.rect.center = (x, y)
+
+        reset_x = x if x is not None else SCREEN_WIDTH // 2
+        reset_y = y if y is not None else SCREEN_HEIGHT // 2
+
+        self.rect.center = (reset_x, reset_y)
         self.velocity = pygame.math.Vector2(0, 0)
         self.on_ground = False
 

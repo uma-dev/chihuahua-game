@@ -1,7 +1,12 @@
 import pygame
 from .gameentity import GameEntity
 from utils.States import AnimatedState, StaticState
-from utils.constants import CHARACTER_SPEED, CHARACTER_SPRINT_SPEED, SCREEN_WIDTH
+from utils.constants import (
+    CHARACTER_JUMP_FORCE,
+    CHARACTER_SPEED,
+    CHARACTER_SPRINT_SPEED,
+    SCREEN_WIDTH,
+)
 
 
 class Character(GameEntity):
@@ -73,7 +78,7 @@ class Character(GameEntity):
 
     def calculate_gravity(self):
         # simple gravity: accelerate down
-        self.dy = self.dy + 0.55 if self.dy else 1
+        self.dy = min(self.dy + 0.55, 10.0)
 
     def jump(self, force: float = 12):
         if not self.jumping:
@@ -82,7 +87,7 @@ class Character(GameEntity):
 
     def key_down(self, key):
         if key == pygame.K_UP:
-            self.jump()
+            self.jump(CHARACTER_JUMP_FORCE)
         elif key == pygame.K_LEFT:
             self.dx = -CHARACTER_SPRINT_SPEED if self.sprinting else -CHARACTER_SPEED
             self.set_current_state("walking_left")
@@ -163,3 +168,5 @@ class Character(GameEntity):
         self.rect.y = self.start_y
         self.dx = 0
         self.dy = 0
+        self.jumping = False
+        self.sprinting = False
