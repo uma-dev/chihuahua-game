@@ -86,9 +86,6 @@ class ChihuahuaEnv(gym.Env):
         self.target = Target(target_x, target_y)
         self.prev_ball_pos = np.array([ball_x, ball_y], dtype=np.float32)
 
-        self.steps = 0
-        self.max_steps = 1000
-
     def reset(self, *, seed=None, options=None):
         super().reset(seed=seed)
         self.character.reset()
@@ -114,8 +111,6 @@ class ChihuahuaEnv(gym.Env):
         )
 
     def step(self, action):
-        self.steps += 1
-
         # 0: No-op
         if action == 1:  # Left
             self.character.key_down(pygame.K_LEFT)
@@ -140,36 +135,35 @@ class ChihuahuaEnv(gym.Env):
         ball_pos = np.array([self.ball.rect.x, self.ball.rect.y])
         tgt_pos = np.array([self.target.rect.x, self.target.rect.y])
 
-        # if self.steps >= self.max_steps:
-        #     done = True
-
         if ball_hits_target(self.ball, self.target):  # win condition
             reward += 10.0
             done = True
         else:
-            # penalty for each step
-            reward -= 0.1
-
-            # penalize distance to target
             dist = np.linalg.norm(ball_pos - tgt_pos)
-            reward -= 0.001 * dist
+
+            # penalty for each step
+            reward -= 0.01
 
             # progress
-            prev_dist = np.linalg.norm(self.prev_ball_pos - tgt_pos)
-            if dist < prev_dist:
-                reward += 0.5
+            # prev_dist = np.linalg.norm(self.prev_ball_pos - tgt_pos)
+            # if dist < prev_dist:
+            #     reward += 0.1
+
+            # distance to target
+            # if dist < 100:
+            #     reward -= 0.001 * dist
 
             # hit the ball
-            if self.character.can_hit_ball(self.ball):
-                reward += 0.2
+            # if self.character.can_hit_ball(self.ball):
+            #     reward += 0.2
 
             # penalize special character movements
-            if self.character.jumping:
-                reward -= 0.2
+            # if self.character.jumping:
+            #     reward -= 0.1
 
             # penalize special character movements
-            if self.character.sprinting:
-                reward -= 0.1
+            # if self.character.sprinting:
+            #     reward -= 0.1
 
         self.prev_ball_pos = ball_pos
 

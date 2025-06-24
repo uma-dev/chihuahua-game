@@ -17,7 +17,7 @@ def train(render_mode=None):
         print(f"Training new model and saving to {MODEL_PATH}")
         model = PPO("MlpPolicy", env, verbose=1, tensorboard_log=LOGS_PATH)
 
-    model.learn(total_timesteps=100_000)
+    model.learn(total_timesteps=500_000)
     model.save(MODEL_PATH)
     print(f"Model saved to {MODEL_PATH}")
 
@@ -27,7 +27,7 @@ def evaluate():
     model = PPO.load(MODEL_PATH)
     obs, _ = env.reset()
 
-    for _ in range(1000):
+    for _ in range(5000):
         action, _ = model.predict(obs)
         obs, _, done, _, _ = env.step(action)
         if done:
