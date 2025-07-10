@@ -244,6 +244,33 @@ This plot shows how long episodes last (in steps), averaged over evaluations:
   (Note: Since episodes last ~1.7k steps, more than one episode might occur per eval.)
 
 ---
+
+### 🙊 Bloopers
+
+#### Reward pitfall
+
+Partial rewards can introduce unintended behaviors during training. In this blooper, the reward setup was wrong. Aiming to improve learning curves, I gave partial rewards to agent: either when moving the ball closer to the target or when hitting the ball. However, these partial rewards per step were greater than the penalty for each step. So, the total reward per step was positive!
+
+As a result, the agent learned to exploit this by only looking for partial rewards, so the episode mean also grows as is show in the results: 
+
+<p align="center">
+  <img
+    alt="Reward pitfall"
+    src="https://github.com/user-attachments/assets/6fc98d07-4955-4a2a-b900-93223bb9236e">
+</p>
+
+> ⚠️ Looks ok, but take a loot to the episode lenght.
+
+
+<p align="center">
+  <img
+    alt="Episode lenght pitfall"
+    src="https://github.com/user-attachments/assets/a0899cd4-a7f3-45f4-b1ae-60b50e6f1e6b">
+</p>
+
+> ⚠️ The result of the reward pitfall. The agent learned to look for partial rewards.
+
+---
 ---
 
 <a name="custom-levels"></a>
